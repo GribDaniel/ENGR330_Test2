@@ -42,7 +42,17 @@ module fullAdder (
     input  logic a, b, cin,
     output logic sum, cout);
 
+    wire w1, w2, w3;
+
+    xor g1 (w1, a, b);
+    and g2 (w2, a, b);
+
+    xor g3 (sum, w1, cin);
+    and g4 (w3, w1, cin);
+
+    or g5 (cout, w3, w2);
+
     // Logic Equations
-    assign sum  = a ^ b ^ cin;
-    assign cout = (a & b) | (b & cin) | (a & cin);
+    // assign sum  = a ^ b ^ cin;
+    // assign cout = (a & b) | (b & cin) | (a & cin);
 endmodule
