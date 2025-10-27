@@ -28,7 +28,7 @@ module rca (
             fullAdder fA (
                 .a(A[i]), .b(B[i]),
                 .cin(carry[i]), .sum(Sum[i]),
-                .cout(carry(i+1))
+                .cout(carry[i+1])
             );
         end
     endgenerate
@@ -51,8 +51,5 @@ module fullAdder (
     and g4 (w3, w1, cin);
 
     or g5 (cout, w3, w2);
-
-    // Logic Equations
-    // assign sum  = a ^ b ^ cin;
-    // assign cout = (a & b) | (b & cin) | (a & cin);
+    
 endmodule
