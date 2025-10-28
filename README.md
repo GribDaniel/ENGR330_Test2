@@ -43,9 +43,16 @@ origin  https://github.com/GribDaniel/ENGR330_Test2.git (push)
 ///////////////////////////////////////
 ////////  Running File  ///////////////
 ///////////////////////////////////////
-iverilog -g2012 -o build/tb.vvp `
->>   adder_rtl/rca.sv `
->>   adder_rtl/cla.sv `
->>   adder_rtl/prefix.sv `
->>   tb/tb_adders.sv
->>   vvp build/tb.vvp
+
+// Running from PowerShell (Purely testbench)
+
+iverilog -g2012 -o build/tb.vvp adder_rtl/rca.sv adder_rtl/cla.sv adder_rtl/prefix.sv tb/tb_adders.sv; vvp build/tb.vvp
+
+
+//Simulation Scripts (Git Bash)
+bash tb/run_sim.sh
+
+//Simulation Scripts (Powershell)
+. "C:\Program Files\yosys\oss-cad-suite\environment.ps1"
+cd C:\ENGR330\adder-Test2\synth
+>> .\measure.ps1
