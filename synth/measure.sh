@@ -1,49 +1,43 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
+# ===============================================
+# measure.sh - Post-synthesis timing/resource script
+# Engineer: Daniel Grib
+# Project: ENGR330 Test 2
+# ===============================================
 
-# If you have a liberty, set LIB=/path/to/liberty.lib for better timing.
-# Otherwise we use tech-independent stats & logic levels.
-: "${LIB:=}"
+set -e  # stop on first error
+mkdir -p results
 
-WIDTHS=("8" "16" "32" "64")
-MODS=("rca" "cla" "prefix_adder")
+RCA_SRC="adder_rtl/rca.sv"
+TB_SRC="tb/tb_rca.sv"
 
-mkdir -p results synth_build
+# Bit-widths to evaluate
+WIDTHS=(8 16 32 64)
 
-for M in "${MODS[@]}"; do
-  for W in "${WIDTHS[@]}"; do
-    OUT="results/${M}_W${W}.rpt"
-    echo "=== Synthesize $M WIDTH=$W ==="
-    yosys -q -l synth_build/${M}_W${W}.yosys.log -p "
-      read_verilog adder_rtl/rca.v adder_rtl/cla.v adder_rtl/prefix.v;
-      chparam -set WIDTH $W $M;
-      synth -top $M;
-      opt_clean;
-      stat;
-      write_json synth_build/${M}_W${W}.json;
-      " > /dev/null
+echo "=============================================="
+echo "Running synthesis / timing measurements"
+echo "=============================================="
 
-    if [[ -n "$LIB" ]]; then
-      yosys -q -p "
-        read_verilog adder_rtl/rca.v adder_rtl/cla.v adder_rtl/prefix.v;
-        chparam -set WIDTH $W $M;
-        synth -top $M;
-        dfflibmap -liberty $LIB;
-        abc -liberty $LIB;
-        stat -liberty $LIB;
-      " > "$OUT"
-    else
-      yosys -q -p "
-        read_verilog adder_rtl/rca.v adder_rtl/cla.v adder_rtl/prefix.v;
-        chparam -set WIDTH $W $M;
-        synth -top $M;
-        abc -D 1000;
-        stat -tech cmos;
-      " > "$OUT"
-    fi
-    echo "Report: $OUT"
-  done
+for W in "${WIDTHS[@]}"; do
+    OUT="results/rca_W${W}.vvp"
+    LOG="results/synth_report_W${W}.txt"
+
+    echo
+    echo "----------------------------------------------"
+    echo "Synthesizing and measuring RCA width = $W bits"
+    echo "----------------------------------------------"
+
+    # Compile with parameter override
+    iverilog -g2012 -o "$OUT" -P rca.N=$W "$RCA_SRC" "$TB_SRC"
+
+    # Run and capture timing info
+    { time vvp "$OUT" > "$LOG"; } 2>> "$LOG"
+
+    echo "Results saved to $LOG"
 done
 
 echo
-echo "Done. See results/*.rpt for area/levels and (if LIB set) timing/Fmax."
+echo "=============================================="
+echo "All measurements complete."
+echo "Logs are in results/."
+echo "=============================================="

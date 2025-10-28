@@ -14,9 +14,9 @@
 origin  https://github.com/GribDaniel/ENGR330_Test2.git (fetch)
 origin  https://github.com/GribDaniel/ENGR330_Test2.git (push)
 
-3. Create main and develop branches
+1. Create main and feat/rca branches
 
-    git checkout -b develop
+    git checkout -b feat/rca
     git checkout -b main
 
 
@@ -40,12 +40,34 @@ origin  https://github.com/GribDaniel/ENGR330_Test2.git (push)
 
     git push origin main
 
+
+// Updates
+
+All of my commits were done through the terminal inside the root of my repo. I double-checked that
+my work was organized correctly through the GitHub
+Desktop.
+
+///////////////////////////////////////
+/////  Software Installed  ////////////
+///////////////////////////////////////
+
+1. Git Bash – Version control & scripting  
+2. Icarus Verilog – Compilation and simulation 
+3. GTKWave – Waveform viewer  
+4. Yosys – Logic synthesis and timing estimation
+
 ///////////////////////////////////////
 ////////  Running File  ///////////////
 ///////////////////////////////////////
-iverilog -g2012 -o build/tb.vvp `
->>   adder_rtl/rca.sv `
->>   adder_rtl/cla.sv `
->>   adder_rtl/prefix.sv `
->>   tb/tb_adders.sv
->>   vvp build/tb.vvp
+
+// Open Git Bash in the Terminal
+
+1. upside down ^ by the +
+
+2. Git Bash
+
+3. For Simulation Script:
+    bash tb/run_sim.sh
+
+4. For Synthesis Script:
+    bash synth/measure.sh
