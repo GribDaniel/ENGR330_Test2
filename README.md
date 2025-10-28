@@ -40,3 +40,12 @@ origin  https://github.com/GribDaniel/ENGR330_Test2.git (push)
 
     git push origin main
 
+///////////////////////////////////////
+////////  Running File  ///////////////
+///////////////////////////////////////
+iverilog -g2012 -o build/tb.vvp `
+>>   adder_rtl/rca.sv `
+>>   adder_rtl/cla.sv `
+>>   adder_rtl/prefix.sv `
+>>   tb/tb_adders.sv
+>>   vvp build/tb.vvp
