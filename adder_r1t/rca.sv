@@ -10,8 +10,7 @@
 //              type of adder. It combines Full Adders in a chain
 //              using a structural behavior.
 //======================
-module rca (
-    parameter N,
+module rca #(parameter int N = 8)(
     input  logic [N-1:0] A, B,
     input  logic       Cin,
     output logic [N-1:0] Sum,
