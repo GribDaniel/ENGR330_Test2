@@ -1,23 +1,41 @@
 #!/bin/bash
-# run_sim.sh - compile & run simulations for multiple bit-widths
-set -e  # stop if any command fails
+# ===============================================
+# run_sim.sh - Functional simulation script (CLA)
+# Engineer : Daniel Grib
+# Project  : ENGR330 Test 2 - Carry-Lookahead Adder
+# ===============================================
 
-BUILD_DIR="build"
-RESULTS_DIR="results"
-RTL_DIR="adder_rtl"
-TB_DIR="tb"
+set -e  # stop on any error
 
-mkdir -p "$BUILD_DIR" "$RESULTS_DIR"
+# Ensure folders exist
+mkdir -p build
+mkdir -p results
 
-for WIDTH in 8 16 32 64; do
-  echo "=============================="
-  echo "Running simulation for WIDTH=${WIDTH}"
-  echo "=============================="
+# File paths
+CLA_SRC="adder_rtl/cla.sv"
+TB_SRC="tb/tb_cla.sv"
+OUT="build/tb_cla.vvp"
+WAVE="results/waves_cla.vcd"
 
-  iverilog -g2012 -o "${BUILD_DIR}/tb_W${WIDTH}.vvp" -DWIDTH=${WIDTH} \
-    ${RTL_DIR}/*.sv ${TB_DIR}/tb_adders.sv
+echo "=============================================="
+echo "Compiling Carry-Lookahead Adder testbench..."
+echo "=============================================="
 
-  vvp "${BUILD_DIR}/tb_W${WIDTH}.vvp" | tee "${RESULTS_DIR}/sim_W${WIDTH}.log"
-done
+# Compile structural CLA + testbench
+iverilog -g2012 -o "$OUT" "$CLA_SRC" "$TB_SRC"
 
-echo "✅ All simulations complete. Waveforms saved to ${RESULTS_DIR}/waves_W*.vcd"
+echo
+echo "=============================================="
+echo "Running CLA simulation..."
+echo "=============================================="
+
+# Execute the compiled simulation
+vvp "$OUT"
+
+echo
+echo "=============================================="
+echo "Simulation complete!"
+echo "Waveform saved to: $WAVE"
+echo "To view results, run:"
+echo "  gtkwave $WAVE"
+echo "=============================================="

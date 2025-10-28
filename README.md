@@ -14,9 +14,9 @@
 origin  https://github.com/GribDaniel/ENGR330_Test2.git (fetch)
 origin  https://github.com/GribDaniel/ENGR330_Test2.git (push)
 
-3. Create main and develop branches
+3. Create main and feat/cla branches
 
-    git checkout -b develop
+    git checkout -b feat/cla
     git checkout -b main
 
 
@@ -36,23 +36,37 @@ origin  https://github.com/GribDaniel/ENGR330_Test2.git (push)
 
     git commit -m "<Insert Comment here>"
 
-4. Push committed files to main branch
+4. Push committed files to feat/cla branch
 
-    git push origin main
+    git push origin feat/cla
+
+///////////////////////////////////////
+//////  Installed Software  ///////////
+///////////////////////////////////////
+
+1. Git Bash
+2. Icarus Verilog
+3. GTKWave
+4. Yosys
 
 ///////////////////////////////////////
 ////////  Running File  ///////////////
 ///////////////////////////////////////
 
-// Running from PowerShell (Purely testbench)
+1. Switching Terminal to Git Bash
 
-iverilog -g2012 -o build/tb.vvp adder_rtl/rca.sv adder_rtl/cla.sv adder_rtl/prefix.sv tb/tb_adders.sv; vvp build/tb.vvp
+    Press the unside down ^ by the + in the Terminal section of VSCode
 
+    Select 'Git Bash'
 
-//Simulation Scripts (Git Bash)
-bash tb/run_sim.sh
+2. For Simulation Script
 
-//Simulation Scripts (Powershell)
-. "C:\Program Files\yosys\oss-cad-suite\environment.ps1"
-cd C:\ENGR330\adder-Test2\synth
->> .\measure.ps1
+    bash tb/run_sim.sh
+
+3. For Waveform Script
+
+    bash results/waves_cla.sh
+
+4. For Synthesis Script
+
+    bash synth/measure.sh
