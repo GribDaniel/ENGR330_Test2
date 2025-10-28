@@ -80,18 +80,44 @@ module cla4 (
 
 endmodule
 
-module fullAdder (
-    input  logic a, b, cin,
-    output logic sum, cout);
+//=======================================================
+// Top-level parameterized CLA using 4-bit CLA blocks
+//=======================================================
+module cla #(
+    parameter integer WIDTH = 32
+)(
+    input  logic [WIDTH-1:0] A, B,
+    input  logic             Cin,
+    output logic [WIDTH-1:0] Sum,
+    output logic             Cout
+);
 
-    wire w1, w2, w3;
+    localparam int N_BLOCKS = WIDTH / 4;
+    logic [N_BLOCKS:0] C;
+    assign C[0] = Cin;
 
-    xor g1 (w1, a, b);
-    and g2 (w2, a, b);
+    genvar i;
+    generate
+        for (i = 0; i < N_BLOCKS; i++) begin : CLA_BLOCKS
+            logic [3:0] a4, b4, s4;
+            logic pBlock, gBlock;
+            assign a4 = A[i*4 +: 4];
+            assign b4 = B[i*4 +: 4];
 
-    xor g3 (sum, w1, cin);
-    and g4 (w3, w1, cin);
+            cla4 cla_inst (
+                .a(a4),
+                .b(b4),
+                .cin(C[i]),
+                .sum(s4),
+                .cout(),
+                .pBlock(pBlock),
+                .gBlock(gBlock)
+            );
 
-    or g5 (cout, w3, w2);
-    
+            assign Sum[i*4 +: 4] = s4;
+            assign C[i+1] = gBlock | (pBlock & C[i]);
+        end
+    endgenerate
+
+    assign Cout = C[N_BLOCKS];
 endmodule

@@ -49,7 +49,7 @@ module tb_rca;
                 //Waveform dump
                 #(1000*i); // delay start time for each config
                 $dumpfile($sformatf("rca_%0dbit.vcd", N));
-                $dumpvars(0, WIDTH_TEST[i]);
+                $dumpvars(0, tb_rca);
 
                 // --- Directed tests ---
                 A = '0; B = '0; Cin = 0; #5;
