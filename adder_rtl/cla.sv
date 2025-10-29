@@ -1,11 +1,13 @@
 `timescale 1ns / 1ps
-//======================
-// Module Name: N-bit Carry-Lookahead Adder (CLA)
-// File: cla.v
-// Engineer: Daniel Grib
+//====================== 
+// Module Name: N-bit Carry-Lookahead Adder (CLA) 
+// File: cla.v 
+// Engineer: Daniel Grib 
 // Create Date: 10/24/25
 //
-// Description: This is my implementation for the carry-lookahead adder.
+// Description: This is my implementation for the carry-lookahead adder. 
+//              It is based off of the structural design that we had in class. 
+//              There is a creation of 4-bit CLAs that are strung together using full adders. 
 //======================
 module cla4 (
     input  logic [3:0] a, b,
