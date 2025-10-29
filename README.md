@@ -125,9 +125,9 @@ my work was organized correctly through the GitHub Desktop.
         bash tb/run_sim.sh
 
     For waveforms: (choose individually)
-        bash results/waves_rca.vcd
-        bash results/waves_cla.vcd
-        bash results/waves_prefix.vcd
+        gtkwave results/waves_rca.vcd
+        gtkwave results/waves_cla.vcd
+        gtkwave results/waves_prefix.vcd
 
 6. measure.sh
 
@@ -145,6 +145,14 @@ my work was organized correctly through the GitHub Desktop.
     To see Timing Results:
         Go to /results/ directory to see each test
 
+/////////////////////
+////// Tagging //////
+/////////////////////
+git tag -a v1.0 -m "ENGR330 Test 2 submission – all adders functional, test scripts included"
+git push origin v1.0
+
+
+
 //////// WHAT WORKED /////////
 1. Implementation of Adders in SystemVerilog
 2. 2 Adders were made using structural Verilog
@@ -158,4 +166,4 @@ my work was organized correctly through the GitHub Desktop.
 8. Tag
 
 /////// WHAT DIDN'T WORK ///////
-1. Producing resource usage (only possible through vivado)
+1. Producing resource usage (only possible through Vivado)
