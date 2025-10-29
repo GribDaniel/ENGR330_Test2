@@ -40,12 +40,10 @@ origin  https://github.com/GribDaniel/ENGR330_Test2.git (push)
 
     git push origin feat/rca
 
-
 // Updates
 
 All of my commits were done through the terminal inside the root of my repo. I double-checked that
-my work was organized correctly through the GitHub
-Desktop.
+my work was organized correctly through the GitHub Desktop.
 
 ///////////////////////////////////////
 /////  Software Installed  ////////////
@@ -69,5 +67,8 @@ Desktop.
 3. For Simulation Script:
     bash tb/run_sim.sh
 
-4. For Synthesis Script:
+4. For Waveform Results:
+    bash results/waves_rca.vcd
+
+5. For Synthesis Script:
     bash synth/measure.sh
