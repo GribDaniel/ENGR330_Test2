@@ -1,43 +1,60 @@
 #!/bin/bash
-# ===============================================
-# measure.sh - Post-simulation measurement script (CLA)
-# Engineer : Daniel Grib
-# Project  : ENGR330 Test 2 - Carry-Lookahead Adder
-# ===============================================
+# =====================================================
+# measure.sh - Synthesis and measurement script
+# Engineer: Daniel Grib
+# Project: ENGR330 Test 2
+# =====================================================
 
 set -e
-mkdir -p build
 mkdir -p results
 
-CLA_SRC="adder_rtl/cla.sv"
-TB_SRC="tb/tb_cla.sv"
+# Detect Yosys
+if ! command -v yosys &> /dev/null; then
+  echo "❌ Yosys not found in PATH!"
+  echo "Please add it using:"
+  echo "  export PATH=\$PATH:\"/c/Program Files/yosys/oss-cad-suite/bin\""
+  exit 1
+fi
 
 WIDTHS=(8 16 32 64)
+TARGET=${1:-all}
 
-echo "=============================================="
-echo "Running Carry-Lookahead Adder measurements"
-echo "=============================================="
+run_synth() {
+  local name=$1
+  local src=$2
 
-for W in "${WIDTHS[@]}"; do
-    OUT="build/tb_cla_W${W}.vvp"
-    LOG="results/synth_report_cla_W${W}.txt"
-
+  for w in "${WIDTHS[@]}"; do
     echo
     echo "----------------------------------------------"
-    echo "Simulating CLA width = $W bits"
+    echo "Synthesizing and measuring ${name^^} width = ${w} bits"
     echo "----------------------------------------------"
 
-    # Compile without parameter override (multi-width testbench already handles all)
-    iverilog -g2012 -o "$OUT" "$CLA_SRC" "$TB_SRC"
+    local outfile="results/synth_report_${name}_W${w}.txt"
+    
+    # Run Yosys and store its own log directly
+    yosys -l "$outfile" -p "read_verilog -sv ${src}; synth -top ${name}; stat -tech xilinx;"
 
-    # Run simulation and capture timing
-    { time vvp "$OUT" > "$LOG"; } 2>> "$LOG"
+    echo "✅ Results saved to $outfile"
+  done
+}
 
-    echo "Results saved to $LOG"
-done
-
-echo
-echo "=============================================="
-echo "All CLA measurements complete."
-echo "Logs available in results/."
-echo "=============================================="
+case "$TARGET" in
+  rca)
+    run_synth "rca" "adder_rtl/rca.sv"
+    ;;
+  cla)
+    run_synth "cla" "adder_rtl/cla.sv"
+    ;;
+  pre|prefix)
+    run_synth "prefix" "adder_rtl/prefix.sv"
+    ;;
+  all)
+    run_synth "rca" "adder_rtl/rca.sv"
+    run_synth "cla" "adder_rtl/cla.sv"
+    run_synth "prefix" "adder_rtl/prefix.sv"
+    ;;
+  *)
+    echo "Usage: bash synth/measure.sh [rca|cla|pre|all]"
+    exit 1
+    ;;
+esac
