@@ -40,33 +40,36 @@ origin  https://github.com/GribDaniel/ENGR330_Test2.git (push)
 
     git push origin feat/cla
 
+// Updates
+
+All of my commits were done through the terminal inside the root of my repo. I double-checked that
+my work was organized correctly through the GitHub
+Desktop.
+
 ///////////////////////////////////////
-//////  Installed Software  ///////////
+/////  Software Installed  ////////////
 ///////////////////////////////////////
 
-1. Git Bash
-2. Icarus Verilog
-3. GTKWave
-4. Yosys
+1. Git Bash – Version control & scripting  
+2. Icarus Verilog – Compilation and simulation 
+3. GTKWave – Waveform viewer  
+4. Yosys – Logic synthesis and timing estimation
 
 ///////////////////////////////////////
 ////////  Running File  ///////////////
 ///////////////////////////////////////
 
-1. Switching Terminal to Git Bash
+// Open Git Bash in the Terminal
 
-    Press the unside down ^ by the + in the Terminal section of VSCode
+1. upside down ^ by the +
 
-    Select 'Git Bash'
+2. Git Bash
 
-2. For Simulation Script
-
+3. For Simulation Script:
     bash tb/run_sim.sh
 
-3. For Waveform Script
+4. For Waveform Results
+    bash results/waves_cla.vcd
 
-    bash results/waves_cla.sh
-
-4. For Synthesis Script
-
+5. For Synthesis Script:
     bash synth/measure.sh
