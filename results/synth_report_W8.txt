@@ -1,0 +1,67 @@
+VCD info: dumpfile results/waves_rca.vcd opened for output.
+==============================================
+Running RCA tests for all widths
+==============================================
+
+--- Test 0 ---
+Inputs: A=0000000000000065, B=0000000000000065, Cin=0
+8-bit OK | Sum=ca
+16-bit OK | Sum=00ca
+32-bit OK | Sum=000000ca
+64-bit OK | Sum=00000000000000ca
+
+--- Test 1 ---
+Inputs: A=ffffffffffffffff, B=0000000000000000, Cin=0
+8-bit OK | Sum=ff
+16-bit OK | Sum=ffff
+32-bit OK | Sum=ffffffff
+64-bit OK | Sum=ffffffffffffffff
+
+--- Test 2 ---
+Inputs: A=00000000000000ff, B=0000000000000001, Cin=0
+8-bit OK | Sum=00
+16-bit OK | Sum=0100
+32-bit OK | Sum=00000100
+64-bit OK | Sum=0000000000000100
+
+--- Test 3 ---
+Inputs: A=00000000000000aa, B=0000000000000055, Cin=0
+8-bit OK | Sum=ff
+16-bit OK | Sum=00ff
+32-bit OK | Sum=000000ff
+64-bit OK | Sum=00000000000000ff
+
+--- Test 4 ---
+Inputs: A=000000000000007f, B=0000000000000001, Cin=1
+8-bit OK | Sum=81
+16-bit OK | Sum=0081
+32-bit OK | Sum=00000081
+64-bit OK | Sum=0000000000000081
+
+--- Test 5 ---
+Inputs: A=000000000000a5a5, B=0000000000005a5a, Cin=0
+8-bit OK | Sum=ff
+16-bit OK | Sum=ffff
+32-bit OK | Sum=0000ffff
+64-bit OK | Sum=000000000000ffff
+
+--- Test 6 ---
+Inputs: A=0000000000000010, B=0000000000000020, Cin=0
+8-bit OK | Sum=30
+16-bit OK | Sum=0030
+32-bit OK | Sum=00000030
+64-bit OK | Sum=0000000000000030
+
+--- Test 7 ---
+Inputs: A=00000000000000fe, B=0000000000000001, Cin=1
+8-bit OK | Sum=00
+16-bit OK | Sum=0100
+32-bit OK | Sum=00000100
+64-bit OK | Sum=0000000000000100
+
+All RCA width tests complete.
+tb/tb_rca.sv:89: $finish called at 80000 (1ps)
+
+real	0m0.059s
+user	0m0.015s
+sys	0m0.000s
