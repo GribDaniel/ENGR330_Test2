@@ -167,3 +167,10 @@ git push origin v1.0
 
 /////// WHAT DIDN'T WORK ///////
 1. Producing resource usage (only possible through Vivado)
+
+
+
+### Release `v1.0`  
+
+**Release Date:** October 28, 2025  
+**Commit:** Submission of ENGR330 Test 2 project
