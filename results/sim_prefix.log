@@ -1,0 +1,14 @@
+
+=== Functional Test for Adder ===
+VCD info: dumpfile results/waves_prefix.vcd opened for output.
+✅ [Line 1] a=0000000000000065 b=0000000000000065 cin=0 OK
+✅ [Line 2] a=ffffffffffffffff b=0000000000000000 cin=0 OK
+✅ [Line 3] a=00000000000000ff b=0000000000000001 cin=0 OK
+✅ [Line 4] a=00000000000000aa b=0000000000000055 cin=0 OK
+✅ [Line 5] a=000000000000007f b=0000000000000001 cin=1 OK
+✅ [Line 6] a=000000000000a5a5 b=0000000000005a5a cin=0 OK
+✅ [Line 7] a=0000000000000010 b=0000000000000020 cin=0 OK
+✅ [Line 8] a=00000000000000fe b=0000000000000001 cin=1 OK
+=== All vectors processed ===
+
+tb/tb_adder.sv:65: $finish called at 40000 (1ps)

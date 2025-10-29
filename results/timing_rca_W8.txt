@@ -1,0 +1,5 @@
+----------------------------------------------
+Timing Estimate for RCA (8-bit)
+----------------------------------------------
+Logic levels: 16
+Estimated propagation delay: 3.360 ns

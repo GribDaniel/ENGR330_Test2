@@ -86,7 +86,7 @@ endmodule
 // Top-level parameterized CLA using 4-bit CLA blocks
 //=======================================================
 module cla #(
-    parameter integer WIDTH = 32
+    parameter integer WIDTH = 64
 )(
     input  logic [WIDTH-1:0] A, B,
     input  logic             Cin,

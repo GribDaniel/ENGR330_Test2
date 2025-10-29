@@ -1,0 +1,5 @@
+----------------------------------------------
+Timing Estimate for PREFIX (16-bit)
+----------------------------------------------
+Logic levels: 7
+Estimated propagation delay: 1.470 ns

@@ -1,0 +1,5 @@
+----------------------------------------------
+Timing Estimate for PREFIX (32-bit)
+----------------------------------------------
+Logic levels: 8
+Estimated propagation delay: 1.680 ns

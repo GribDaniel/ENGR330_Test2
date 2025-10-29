@@ -1,0 +1,5 @@
+----------------------------------------------
+Timing Estimate for RCA (64-bit)
+----------------------------------------------
+Logic levels: 128
+Estimated propagation delay: 26.880 ns

@@ -1,0 +1,5 @@
+----------------------------------------------
+Timing Estimate for CLA (64-bit)
+----------------------------------------------
+Logic levels: 20
+Estimated propagation delay: 4.200 ns

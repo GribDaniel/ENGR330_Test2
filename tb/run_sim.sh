@@ -1,9 +1,9 @@
 #!/bin/bash
-# ===============================================
-# run_sim.sh - Functional Simulation Script
+# =====================================================
+# run_sim.sh - Functional Simulation Script (Universal Testbench)
 # Engineer: Daniel Grib
 # Project: ENGR330 Test 2
-# ===============================================
+# =====================================================
 
 set -e  # Stop if any command fails
 
@@ -11,14 +11,14 @@ set -e  # Stop if any command fails
 mkdir -p build
 mkdir -p results
 
-# Define file paths for all adders
+# Source RTL paths
 RCA_SRC="adder_rtl/rca.sv"
 CLA_SRC="adder_rtl/cla.sv"
 PRE_SRC="adder_rtl/prefix.sv"
 
-TB_RCA="tb/tb_rca.sv"
-TB_CLA="tb/tb_cla.sv"
-TB_PRE="tb/tb_pre.sv"
+# Shared testbench and vector file
+TB_FILE="tb/tb_adder.sv"
+VEC_FILE="tb/test_vectors.txt"
 
 # Argument: which design to simulate
 TARGET=${1:-all}  # default = all
@@ -29,7 +29,6 @@ TARGET=${1:-all}  # default = all
 run_sim() {
     local name=$1
     local src=$2
-    local tb=$3
     local out="build/tb_${name}.vvp"
     local wave="results/waves_${name}.vcd"
 
@@ -37,17 +36,35 @@ run_sim() {
     echo "=============================================="
     echo "Compiling ${name^^} testbench..."
     echo "=============================================="
-    iverilog -g2012 -o "$out" "$src" "$tb"
+
+    # Select which DUT to build
+    case "$name" in
+        rca)
+            macro="-D TARGET_RCA"
+            ;;
+        cla)
+            macro="-D TARGET_CLA"
+            ;;
+        pre|prefix)
+            macro="-D TARGET_PREFIX"
+            ;;
+        *)
+            echo "❌ Unknown adder type: $name"
+            exit 1
+            ;;
+    esac
+
+    # Compile with Icarus Verilog (SystemVerilog 2012)
+    iverilog -g2012 $macro -o "$out" "$src" "$TB_FILE"
 
     echo
     echo "=============================================="
     echo "Running ${name^^} simulation..."
     echo "=============================================="
-    vvp "$out"
-
-    echo
-    echo "Simulation complete!"
-    echo "Waveform: $wave"
+    vvp "$out" +VEC_FILE="$VEC_FILE" +WAVE_FILE="$wave"
+    echo "=============================================="
+    echo "✅ Simulation complete for ${name^^}"
+    echo "✅ Waveform: $wave"
     echo "Open with: gtkwave $wave"
     echo "=============================================="
 }
@@ -57,18 +74,18 @@ run_sim() {
 # -----------------------------------------------
 case "$TARGET" in
     rca)
-        run_sim "rca" "$RCA_SRC" "$TB_RCA"
+        run_sim "rca" "$RCA_SRC"
         ;;
     cla)
-        run_sim "cla" "$CLA_SRC" "$TB_CLA"
+        run_sim "cla" "$CLA_SRC"
         ;;
     pre|prefix)
-        run_sim "pre" "$PRE_SRC" "$TB_PRE"
+        run_sim "pre" "$PRE_SRC"
         ;;
     all)
-        run_sim "rca" "$RCA_SRC" "$TB_RCA"
-        run_sim "cla" "$CLA_SRC" "$TB_CLA"
-        run_sim "pre" "$PRE_SRC" "$TB_PRE"
+        run_sim "rca" "$RCA_SRC"
+        run_sim "cla" "$CLA_SRC"
+        run_sim "pre" "$PRE_SRC"
         ;;
     *)
         echo "Usage: bash tb/run_sim.sh [rca|cla|pre|all]"
