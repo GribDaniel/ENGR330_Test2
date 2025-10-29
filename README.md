@@ -36,9 +36,9 @@ origin  https://github.com/GribDaniel/ENGR330_Test2.git (push)
 
     git commit -m "<Insert Comment here>"
 
-4. Push committed files to main branch
+4. Push committed files to feat/rca branch
 
-    git push origin main
+    git push origin feat/rca
 
 
 // Updates
