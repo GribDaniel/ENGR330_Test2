@@ -80,15 +80,15 @@ case "$TARGET" in
         run_sim "cla" "$CLA_SRC"
         ;;
     pre|prefix)
-        run_sim "pre" "$PRE_SRC"
+        run_sim "prefix" "$PRE_SRC"
         ;;
     all)
         run_sim "rca" "$RCA_SRC"
         run_sim "cla" "$CLA_SRC"
-        run_sim "pre" "$PRE_SRC"
+        run_sim "prefix" "$PRE_SRC"
         ;;
     *)
-        echo "Usage: bash tb/run_sim.sh [rca|cla|pre|all]"
+        echo "Usage: bash tb/run_sim.sh [rca|cla|prefix|all]"
         exit 1
         ;;
 esac
